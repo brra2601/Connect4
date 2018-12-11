@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Connect4
 {
     public class Player
     {
-        public ulong Bitboard { get; }
+        public ulong Bitboard { get; private set; }
         private const short rows = 6;
         private const short cols = 7;
 
@@ -31,6 +27,32 @@ namespace Connect4
             ulong columnMask = 0x810204081; // Full column.
             columnMask = columnMask << index;
             return Bitboard & columnMask;
+        }
+
+        public void OccupyLocation(int rowIndex, int colIndex)
+        {
+            // Handle bad requests.
+            if (colIndex >= cols || colIndex < 0)
+            {
+                throw new Exception("Column index is out of bounds");
+            }
+            if (rowIndex >= rows || rowIndex < 0)
+            {
+                throw new Exception("Row index is out of bounds");
+            }
+                
+            // Check to see if the position is already occupied.
+            int shiftAmount = 7 * rowIndex + colIndex;
+            ulong location = (Bitboard >> shiftAmount) & 0x1;
+            if (location == 0x1)
+            {
+                // If the location is already occupued, the game engine has failed its duty.
+                throw new Exception("The location is already occupied, check game engine logic");
+            }
+
+            // Change the bit to 1 so it is occupied.
+            location = (ulong)0x1 << shiftAmount;
+            Bitboard = Bitboard | location;
         }
 
         public bool CheckForWin()
