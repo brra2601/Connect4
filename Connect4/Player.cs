@@ -98,7 +98,7 @@ namespace Connect4
             return false;
         }
 
-        public bool CheckForColWin()
+        private bool CheckForColWin()
         {
             ulong column;
             ulong didWin;
@@ -120,7 +120,7 @@ namespace Connect4
             return false;
         }
 
-        public bool CheckForDiagWin()
+        private bool CheckForDiagWin()
         {
             ulong diagonal;
             ulong didWin;
