@@ -57,40 +57,48 @@ namespace Connect4
 
         public bool CheckForWin()
         {
-            bool didWin = false;
-            didWin = didWin | CheckForRowWin();
-            didWin = didWin | CheckForColWin();
-            return didWin;
-        }
-
-        private bool CheckForRowWin()
-        {
-            ulong didWin;
-            ulong pos1, pos2, pos3, pos4;
-            ulong horizontal4mask = 0xF;
-
-            for(short i = 0; i < rows; i++)
+            if (CheckForRowWin() == true)
             {
-                pos1 = (Bitboard >> (7 * i)) & horizontal4mask;           // 1 1 1 1 0 0 0
-                pos2 = (Bitboard >> (1 + (7 * i))) & horizontal4mask;     // 0 1 1 1 1 0 0
-                pos3 = (Bitboard >> (2 + (7 * i))) & horizontal4mask;     // 0 0 1 1 1 1 0
-                pos4 = (Bitboard >> (3 + (7 * i))) & horizontal4mask;     // 0 0 0 1 1 1 1
-
-                // Comparison generates 0 if there is a win in any of the positions.
-                didWin = ~(~horizontal4mask | pos1) &
-                         ~(~horizontal4mask | pos2) &
-                         ~(~horizontal4mask | pos3) &
-                         ~(~horizontal4mask | pos4);
-
-                if (didWin == 0)
-                {
-                    return true;
-                }
+                Console.WriteLine("Row Win");
+                return true;
+            }
+            if (CheckForColWin() == true)
+            {
+                Console.WriteLine("Col Win");
+                return true;
+            }
+            if (CheckForDiagWin() == true)
+            {
+                Console.WriteLine("Diag Win");
+                return true;
             }
             return false;
         }
 
-        private bool CheckForColWin()
+        private bool CheckForRowWin()
+        {
+            ulong horizontal;
+            ulong didWin;
+            ulong horizontalMask = 0xF;
+
+            for(short i = 0; i < rows; i++)
+            {
+                for(short j = 0; j < 4; j++)
+                {
+                    horizontal = Bitboard & horizontalMask;
+                    didWin = ~(~horizontalMask | horizontal);
+                    if (didWin == 0)
+                    {
+                        return true;
+                    }
+                    horizontalMask = horizontalMask << 1;
+                }
+                horizontalMask = horizontalMask << 3;
+            }
+            return false;
+        }
+
+        public bool CheckForColWin()
         {
             ulong column;
             ulong didWin;
@@ -108,6 +116,30 @@ namespace Connect4
                     }
                     columnWinMask = columnWinMask << 1;
                 }
+            }
+            return false;
+        }
+
+        public bool CheckForDiagWin()
+        {
+            ulong diagonal;
+            ulong didWin;
+            ulong diagonalWinMask = 0x208208;
+
+            for (short i = 0; i < 3; i++)
+            {
+                for (short j = 0; j < 4; j++)
+                {
+                    diagonal = Bitboard & diagonalWinMask;
+                    didWin = ~(~diagonalWinMask | diagonal);
+                    if (didWin == 0 && diagonal != 0)
+                    {
+                        return true;
+                    }
+                    
+                    diagonalWinMask = diagonalWinMask << 1;
+                }
+                diagonalWinMask = diagonalWinMask << 4;
             }
             return false;
         }

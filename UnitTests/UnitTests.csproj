@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="PlayerBoardAccessTests.cs" />
     <Compile Include="PlayerColumnWinTests.cs" />
+    <Compile Include="PlayerDiagWinTests.cs" />
     <Compile Include="PlayerRowWinTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
