@@ -55,6 +55,7 @@ namespace Connect4
                 UpdateGUI();
                 if (player1.CheckForWin())
                 {
+                    InformPlayer1Win();
                     break;
                 }
                 
@@ -62,6 +63,7 @@ namespace Connect4
                 UpdateGUI();
                 if (player2.CheckForWin())
                 {
+                    InformPlayer2Win();
                     break;
                 }
             }
@@ -109,6 +111,8 @@ namespace Connect4
         protected abstract void PromptUserForMove();
         protected abstract short GetColumnMoveFromUser();
         protected abstract void InformUserInvalidMove();
+        protected abstract void InformPlayer1Win();
+        protected abstract void InformPlayer2Win();
 
     }
 }

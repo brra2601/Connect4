@@ -59,17 +59,17 @@ namespace Connect4
         {
             if (CheckForRowWin() == true)
             {
-                Console.WriteLine("Row Win");
+                //Console.WriteLine("Row Win");
                 return true;
             }
             if (CheckForColWin() == true)
             {
-                Console.WriteLine("Col Win");
+                //Console.WriteLine("Col Win");
                 return true;
             }
             if (CheckForDiagWin() == true)
             {
-                Console.WriteLine("Diag Win");
+                //Console.WriteLine("Diag Win");
                 return true;
             }
             return false;

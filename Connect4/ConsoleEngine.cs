@@ -25,7 +25,7 @@ namespace Connect4
 
         protected override void PromptUserForMove()
         {
-            Console.WriteLine("Which column would you like to play at?");
+            //Console.WriteLine("Which column would you like to play at?");
         }
 
         protected override void InformUserInvalidMove()
@@ -42,7 +42,9 @@ namespace Connect4
             ulong player2board = player2.Bitboard;
             ulong mask = 0x1;
             Console.Clear();
-            Console.WriteLine("==1=2=3=4=5=6=7==");
+            Console.WriteLine("=================");
+            Console.WriteLine("|   CONNECT 4   |");
+            Console.WriteLine("|=1=2=3=4=5=6=7=|");
             for (int i = 0; i < 6; i++)
             {
                 Console.Write("|");
@@ -71,6 +73,24 @@ namespace Connect4
             }
             Console.WriteLine("=================");
             Console.WriteLine();
+        }
+
+        protected override void InformPlayer1Win()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Player 1 Wins! ZOMG!!!");
+            Console.ResetColor();
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+        }
+
+        protected override void InformPlayer2Win()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Player 2 Wins! ZOMG!!!");
+            Console.ResetColor();
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
         }
 
     }
