@@ -139,7 +139,7 @@ namespace Connect4
                     
                     diagonalWinMask = diagonalWinMask << 1;
                 }
-                diagonalWinMask = diagonalWinMask << 4;
+                diagonalWinMask = diagonalWinMask << 3;
             }
             return false;
         }

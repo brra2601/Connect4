@@ -30,6 +30,8 @@ namespace Connect4
 
         protected override void InformUserInvalidMove()
         {
+            Console.Clear();
+            UpdateGUI();
             Console.WriteLine("That's not a valid move, please enter in another number.");
         }
 
@@ -40,7 +42,7 @@ namespace Connect4
             ulong player2board = player2.Bitboard;
             ulong mask = 0x1;
             Console.Clear();
-            Console.WriteLine("=================");
+            Console.WriteLine("==1=2=3=4=5=6=7==");
             for (int i = 0; i < 6; i++)
             {
                 Console.Write("|");
