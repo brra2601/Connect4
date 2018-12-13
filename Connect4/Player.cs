@@ -102,8 +102,23 @@ namespace Connect4
         {
             ulong column;
             ulong didWin;
-            ulong columnWinMask = 0x204081;
+            ulong columnWinMask = 0x204081; // Bottom left to top right diagonal.
 
+            for (short i = 0; i < 3; i++)
+            {
+                for (short j = 0; j < cols; j++)
+                {
+                    column = Bitboard & columnWinMask;
+                    didWin = ~(~columnWinMask | column);
+                    if (didWin == 0)
+                    {
+                        return true;
+                    }
+                    columnWinMask = columnWinMask << 1;
+                }
+            }
+
+            columnWinMask = 0x10101;    // Top left to bottom right diagonal.
             for (short i = 0; i < 3; i++)
             {
                 for (short j = 0; j < cols; j++)
