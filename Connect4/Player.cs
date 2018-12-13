@@ -102,23 +102,8 @@ namespace Connect4
         {
             ulong column;
             ulong didWin;
-            ulong columnWinMask = 0x204081; // Bottom left to top right diagonal.
+            ulong columnWinMask = 0x204081;
 
-            for (short i = 0; i < 3; i++)
-            {
-                for (short j = 0; j < cols; j++)
-                {
-                    column = Bitboard & columnWinMask;
-                    didWin = ~(~columnWinMask | column);
-                    if (didWin == 0)
-                    {
-                        return true;
-                    }
-                    columnWinMask = columnWinMask << 1;
-                }
-            }
-
-            columnWinMask = 0x10101;    // Top left to bottom right diagonal.
             for (short i = 0; i < 3; i++)
             {
                 for (short j = 0; j < cols; j++)
@@ -139,7 +124,7 @@ namespace Connect4
         {
             ulong diagonal;
             ulong didWin;
-            ulong diagonalWinMask = 0x208208;
+            ulong diagonalWinMask = 0x208208;   // Top right to bottom left diagonal.
 
             for (short i = 0; i < 3; i++)
             {
@@ -152,6 +137,24 @@ namespace Connect4
                         return true;
                     }
                     
+                    diagonalWinMask = diagonalWinMask << 1;
+                }
+                diagonalWinMask = diagonalWinMask << 3;
+            }
+
+            diagonalWinMask = 0x10101;    // Top left to bottom right diagonal.
+
+            for (short i = 0; i < 3; i++)
+            {
+                for (short j = 0; j < 4; j++)
+                {
+                    diagonal = Bitboard & diagonalWinMask;
+                    didWin = ~(~diagonalWinMask | diagonal);
+                    if (didWin == 0 && diagonal != 0)
+                    {
+                        return true;
+                    }
+
                     diagonalWinMask = diagonalWinMask << 1;
                 }
                 diagonalWinMask = diagonalWinMask << 3;
