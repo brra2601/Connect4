@@ -125,6 +125,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connect4Constants.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="ConsoleEngine.cs" />
     <Compile Include="Player.cs" />

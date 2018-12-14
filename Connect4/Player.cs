@@ -5,8 +5,6 @@ namespace Connect4
     public class Player
     {
         public ulong Bitboard { get; private set; }
-        private const short rows = 6;
-        private const short cols = 7;
 
         public Player()
         {
@@ -20,17 +18,21 @@ namespace Connect4
 
         public ulong GetColumn(short index)
         {
+            const short cols = Connect4Constants.Dimensions.cols;
             if(index >= cols || index < 0)
             {
                 throw new Exception("Column index is out of bounds");
             }
-            ulong columnMask = 0x810204081; // Full column.
+            ulong columnMask = Connect4Constants.Masks.fullColumn;
             columnMask = columnMask << index;
             return Bitboard & columnMask;
         }
 
         public void OccupyLocation(int rowIndex, int colIndex)
         {
+            const short cols = Connect4Constants.Dimensions.cols;
+            const short rows = Connect4Constants.Dimensions.rows;
+
             // Handle bad requests.
             if (colIndex >= cols || colIndex < 0)
             {
@@ -59,17 +61,14 @@ namespace Connect4
         {
             if (CheckForRowWin() == true)
             {
-                //Console.WriteLine("Row Win");
                 return true;
             }
             if (CheckForColWin() == true)
             {
-                //Console.WriteLine("Col Win");
                 return true;
             }
             if (CheckForDiagWin() == true)
             {
-                //Console.WriteLine("Diag Win");
                 return true;
             }
             return false;
@@ -79,7 +78,8 @@ namespace Connect4
         {
             ulong horizontal;
             ulong didWin;
-            ulong horizontalMask = 0xF;
+            ulong horizontalMask = Connect4Constants.Masks.horizontal4;
+            const short rows = Connect4Constants.Dimensions.rows;
 
             for(short i = 0; i < rows; i++)
             {
@@ -102,7 +102,8 @@ namespace Connect4
         {
             ulong column;
             ulong didWin;
-            ulong columnWinMask = 0x204081;
+            ulong columnWinMask = Connect4Constants.Masks.vertical4;
+            const short cols = Connect4Constants.Dimensions.cols;
 
             for (short i = 0; i < 3; i++)
             {
@@ -124,7 +125,7 @@ namespace Connect4
         {
             ulong diagonal;
             ulong didWin;
-            ulong diagonalWinMask = 0x208208;   // Top right to bottom left diagonal.
+            ulong diagonalWinMask = Connect4Constants.Masks.diagonalTopRight;
 
             for (short i = 0; i < 3; i++)
             {
@@ -142,7 +143,7 @@ namespace Connect4
                 diagonalWinMask = diagonalWinMask << 3;
             }
 
-            diagonalWinMask = 0x10101;    // Top left to bottom right diagonal.
+            diagonalWinMask = Connect4Constants.Masks.diagonalTopLeft;
 
             for (short i = 0; i < 3; i++)
             {
