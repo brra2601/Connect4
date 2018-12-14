@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Connect4
+﻿namespace Connect4
 {
     public abstract class Engine
     {
@@ -33,15 +31,7 @@ namespace Connect4
                 InformUserInvalidMove();
             }
             rowIndex = GetRowMoveFromColumnIndex(columnIndex);
-            try
-            {
-                player.OccupyLocation(rowIndex, columnIndex);
-                
-            } catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-            }
+            player.OccupyLocation(rowIndex, columnIndex);
         }
 
         protected void GameLoop()

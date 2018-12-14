@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Connect4
 {
@@ -66,7 +62,6 @@ namespace Connect4
                     {
                         Console.Write(" -");
                     }
-                    //board = board >> 1;
                     mask = mask << 1;
                 }
                 Console.Write(" |\n");
@@ -78,7 +73,7 @@ namespace Connect4
         protected override void InformPlayer1Win()
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Player 1 Wins! ZOMG!!!");
+            Console.WriteLine("Player 1 Wins!");
             Console.ResetColor();
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
@@ -87,7 +82,7 @@ namespace Connect4
         protected override void InformPlayer2Win()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Player 2 Wins! ZOMG!!!");
+            Console.WriteLine("Player 2 Wins!");
             Console.ResetColor();
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
